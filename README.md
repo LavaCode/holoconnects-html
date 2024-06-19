@@ -13,12 +13,10 @@ Tested and functional on Chrome.
 
 ### About:
 
-.. You may use this code only if granted by author .. 
-
 **Author:** Kasper - Rapenburg Plaza<br>
 **Contact:** kasper@rapenburgplaza.nl<br>
 
 **Latest update:** 19th June 2024 - V1<br>
 
-
+.. You may use this code only if granted by author .. 
 
