@@ -191,7 +191,7 @@
                         request = "https://" + finalEndpoint + ".hologreets.com/api/reception/" + finalLifesizeId + "/?status=dial";
                     }
 
-                    const post = await fetch(request).then((res) => res.json());
+                    const post = await fetch(request, {mode:"no-cors"}).then((res) => res.json());
 
                     if (post.success) {
                         sendUdp("dial_true")
@@ -247,7 +247,7 @@
                         request = "https://" + finalEndpoint + ".hologreets.com/api/reception/" + finalLifesizeId + "/screenstatus";
                     }
 
-                    const post = await fetch(request).then((res) => res.json());
+                    const post = await fetch(request, {mode:"no-cors"}).then((res) => res.json());
 
                     if (post.status == 0) {
                         sendUdp("hangup_active");
