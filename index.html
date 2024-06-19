@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holoconnects Box Setup</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            font-size: 16px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 30px;
+            width: 100%;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+            text-align: left;
+        }
+
+        footer {
+            padding: 10px 0;
+            text-align: center;
+            background-color: #333;
+            color: #fff;
+            font-size: 12px;
+        }
+
+        .page-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-content">
+        <div class="container">
+            <h1>New Holobox Setup</h1>
+            <form id="variableForm">
+                <label for="var1">Project name:</label>
+                <input type="text" id="var1" name="var1">
+                <div id="var1Error" class="error"></div>
+                <label for="var2">Lifesize ID (9 digits):</label>
+                <input type="text" id="var2" name="var2">
+                <div id="var2Error" class="error"></div>
+                <label for="var3">Ready for deployment:</label>
+                <select id="var3" name="var3">
+                    <option value=true>Yes, ready to be deployed on-site</option>
+                    <option value=false selected>No, we need to test first</option>
+                </select>
+                <label for="var4">Client is (for example: CIC):</label>
+                <input type="text" id="var4" name="var4">
+                <div id="var4Error" class="error"></div>
+                <button type="button" onclick="exportHTML()">Export ZIP</button>
+            </form>
+        </div>
+    </div>
+    <footer>
+        Made by Kasper - Rapenburg Plaza. Contact: kasper[at]rapenburgplaza.nl | 2024
+    </footer>
+
+    <script>
+        function exportHTML() {
+            // Get form values
+            const var1 = document.getElementById('var1').value;
+            const var2 = document.getElementById('var2').value;
+            const var3 = document.getElementById('var3').value;
+            const var4 = document.getElementById('var4').value;
+            const var1Error = document.getElementById('var1Error');
+            const var2Error = document.getElementById('var2Error');
+            const var4Error = document.getElementById('var4Error');
+            console.log(var3)
+
+            // Validate Project value
+            if (var1 === "") {
+                var1Error.textContent = 'Project name cannot be empty.';
+                return;
+            } else {
+                var1Error.textContent = "";
+            }
+
+            // Validate Lifesize value
+            const var2Pattern = /^\d{9}$/;
+            if (!var2Pattern.test(var2)) {
+                var2Error.textContent = 'Lifesize ID must be exactly 9 digits.';
+                return;
+            } else {
+                var2Error.textContent = '';
+            }
+        
+            // Validate Client value
+            if (var4 === "") {
+                var4Error.textContent = 'Client name cannot be empty.';
+                return;
+            } else {
+                var4Error.textContent = "";
+            }
+
+            const var4Stringified = JSON.stringify(var4);
+
+            // Define the HTML Pages
+            const htmlInitCall = `
+            <!DOCTYPE html>
+            <html>
+
+            <head>
+            <script>
+                const lifesizeId = ${var2};
+                const readyForDeployment = ${var3};
+                const client = ${var4Stringified};
+
+                async function getData() {
+                    const debug = false;
+                    let finalEndpoint = client.toLowerCase();
+                    let finalLifesizeId = "0" + lifesizeId;
+                    let request = "";
+
+                    if (debug == true) {
+                        console.log("Custom client = " + finalEndpoint);
+                        console.log("Custom ID to be used in request is: " + lifesizeId);
+                        console.log("Final ID to be used in request is: " + finalLifesizeId);
+                        console.log("Custom endpoint is set to: " + finalEndpoint);
+                        console.log("Mode is: " + readyForDeployment);
+                        console.log("Request to be made is [client-mode]: " + "https://" + finalEndpoint + ".hologreets.com/api/reception/" + finalLifesizeId + "/?status=dial");
+                        console.log("Request to be made is [test-mode]: " + "https://testing.hologreets.com/api/reception/" + finalLifesizeId + "/?status=dial");
+                    }
+
+                    if (!readyForDeployment) {
+                        request = "https://testing.hologreets.com/api/reception/" + finalLifesizeId + "/?status=dial";
+                    } else if (readyForDeployment) {
+                        request = "https://" + finalEndpoint + ".hologreets.com/api/reception/" + finalLifesizeId + "/?status=dial";
+                    }
+
+                    const post = await fetch(request).then((res) => res.json());
+
+                    if (post.success) {
+                        sendUdp("dial_true")
+                    } else if (!post.success) {
+                        sendUdp("dial_false")
+                    }
+                }
+
+                function sendUdp(message) {
+                var udp_socket = new BSDatagramSocket();
+                var udpMessage = message;
+                console.log(udpMessage);
+                udp_socket.SendTo("127.0.0.1", 5000, udpMessage);
+                }
+
+                getData();
+            <\/script>
+            </head>
+
+            </html>
+
+            `;
+
+            const htmlScreenStatus = `
+            <!DOCTYPE html>
+            <html>
+
+            <head>
+            <script>
+                const lifesizeId = ${var2};
+                const readyForDeployment = ${var3};
+                const client = ${var4Stringified};
+
+                async function getData() {
+                    const debug = false;
+                    let finalEndpoint = client.toLowerCase();
+                    let finalLifesizeId = "0" + lifesizeId;
+                    let request = "";
+
+                    if (debug == true) {
+                        console.log("Custom client = " + finalEndpoint);
+                        console.log("Custom ID to be used in request is: " + lifesizeId);
+                        console.log("Final ID to be used in request is: " + finalLifesizeId);
+                        console.log("Custom endpoint is set to: " + finalEndpoint);
+                        console.log("Mode is: " + readyForDeployment);
+                        console.log("Request to be made is [client-mode]: " + "https://" + finalEndpoint + ".hologreets.com/api/reception/" + finalLifesizeId + "/?status=dial");
+                        console.log("Request to be made is [test-mode]: " + "https://testing.hologreets.com/api/reception/" + finalLifesizeId + "/?status=dial");
+                    }
+
+                    if (!readyForDeployment) {
+                        request = "https://testing.hologreets.com/api/reception/" + finalLifesizeId + "/screenstatus";
+                    } else if (readyForDeployment) {
+                        request = "https://" + finalEndpoint + ".hologreets.com/api/reception/" + finalLifesizeId + "/screenstatus";
+                    }
+
+                    const post = await fetch(request).then((res) => res.json());
+
+                    if (post.status == 0) {
+                        sendUdp("hangup_active");
+                    } else if (post.status == 1) {
+                        sendUdp("call_active");
+                    }
+                }
+
+                function sendUdp(message) {
+                    var udp_socket = new BSDatagramSocket();
+                    var udpMessage = message;
+                    console.log(udpMessage);
+                    udp_socket.SendTo("127.0.0.1", 5000, udpMessage);
+                }
+
+                getData();
+            <\/script>
+            </head>
+
+            </html>
+            `;
+
+            // Create a new JSZip instance
+            const zip = new JSZip();
+
+            zip.file('init-call.html', htmlInitCall);
+            zip.file('screen-status.html', htmlScreenStatus);
+            zip.generateAsync({ type: 'blob' })
+                .then(function (blob) {
+                    const zipFile = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = zipFile;
+                    link.download = `${var1}.zip`;
+                    link.style.display = 'none';
+                    document.body.appendChild(link);
+
+                    link.click();
+
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(zipFile);
+
+                    //on Success
+                    alert('ZIP file exported successfully! Now you can set up the BrightSign presentation. Good luck!');
+
+                    document.getElementById('var1').value = '';
+                    document.getElementById('var2').value = '';
+                    document.getElementById('var3').value = 'false'; // Reset select to default
+                    document.getElementById('var4').value = '';
+                })
+                .catch(function (error) {
+                    console.error('Error generating zip file:', error);
+                });
+
+            
+        }
+    </script>
+</body>
+</html>
