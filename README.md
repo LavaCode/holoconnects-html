@@ -1,4 +1,4 @@
-# Holoconnects Box Creator[CIC]
+# Holoconnects Box Creator [CIC]
 
 This HTML will help you to setup a new Holobox within a CIC or similar concept.<br> 
 
@@ -7,11 +7,11 @@ Tested and functional on Chrome.
 
 **Always** save a backup once you have the final files!
 
-## To be made
+### To be made:
 - fix for CORS on serverside Holocontrol
 
 
-### About
+### About:
 
 .. You may use this code only if granted by author .. 
 
