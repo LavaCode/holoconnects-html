@@ -11,7 +11,7 @@ Tested and functional on Chrome.
 - fix for CORS on serverside Holocontrol
 
 
-# Credit
+### About
 
 .. You may use this code only if granted by author .. 
 
