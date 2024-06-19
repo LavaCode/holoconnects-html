@@ -9,6 +9,7 @@ Tested and functional on Chrome.
 
 ### To be made:
 - fix for CORS on serverside Holocontrol
+- Alternative for CORS: add option to set CORS in form
 
 
 ### About:
