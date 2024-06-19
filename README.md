@@ -13,7 +13,7 @@ Tested and functional on Chrome.
 
 # Credit
 
-You may use this code only if granted by author
+.. You may use this code only if granted by author .. 
 
 **Author:** Kasper - Rapenburg Plaza<br>
 **Contact:** kasper@rapenburgplaza.nl<br>
