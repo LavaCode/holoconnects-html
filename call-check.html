@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script>
+      // HOLOCONNECTS -- DEFINE CUSTOM VARIABLES BELOW: 
+      // HOW TO EDIT? Only change the data after the quotation mark. 
+      
+      const destinationId = 12345678        // set lifesize ID
+      const testing = "testing"             // define destination as "cic", "testing" else.. 
+      const makeCall = false 
+      // END
+      
+      async function getData() {
+        const post = await fetch("https://testing.hologreets.com/api/reception/0123456789/?status=dial").then((res) => res.json());
+
+        if (post.status == 0) {
+          sendUdp("hangup_active")
+        } else if (post.status == 1) {
+          sendUdp("call_active")
+        }
+
+      }
+
+      function sendUdp(message) {
+        var udp_socket = new BSDatagramSocket();
+        var udpMessage = message;
+        console.log(udpMessage);
+        udp_socket.SendTo("127.0.0.1", 5000, udpMessage);
+      }
+
+      getData();
+    </script>
+  </body>
+</html> 
