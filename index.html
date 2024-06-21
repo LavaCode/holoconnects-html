@@ -100,7 +100,7 @@
                 <label for="var1">Project name:</label>
                 <input type="text" id="var1" name="var1">
                 <div id="var1Error" class="error"></div>
-                <label for="var2">Lifesize ID (9 digits):</label>
+                <label for="var2">Lifesize ID (8 digits):</label>
                 <input type="text" id="var2" name="var2">
                 <div id="var2Error" class="error"></div>
                 <label for="var3">Ready for deployment:</label>
@@ -140,9 +140,9 @@
             }
 
             // Validate Lifesize value
-            const var2Pattern = /^\d{9}$/;
+            const var2Pattern = /^\d{8}$/;
             if (!var2Pattern.test(var2)) {
-                var2Error.textContent = 'Lifesize ID must be exactly 9 digits.';
+                var2Error.textContent = 'Lifesize ID must be exactly 8 digits.';
                 return;
             } else {
                 var2Error.textContent = '';
