@@ -1,4 +1,4 @@
-# Holoconnects Box Creator [Live-call to studio concept]
+# Holoconnects Box Creator
 
 This HTML will help you to setup a new Holobox within a CIC or similar concept.<br> 
 The tool will generate 6 files to be used in BrightAuthor presentations specific to your input.<br>
