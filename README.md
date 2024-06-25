@@ -8,10 +8,11 @@ Download the "index.html" file, run it in your browser and simply follow instruc
 
 **Always** save a backup once you have the final files!<br>
 
-#### WIP:
+#### WIP [issues to be confirmed first]:
 - fix for CORS on serverside Holocontrol
 - Alternative for CORS: add option to set CORS in form
 
+<br/><br/>
 
 ### About:
 **Author:** Kasper - Rapenburg Plaza<br>
