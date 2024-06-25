@@ -469,14 +469,16 @@
                     URL.revokeObjectURL(zipFile);
 
                     //on Success
-                    alert('ZIP file exported successfully! Now you can set up the BrightSign presentation. Good luck!');
+                    //alert('ZIP file exported successfully! Now you can set up the BrightSign presentation. Good luck!');
 
+                    //reset form
                     document.getElementById('var1').value = '';
                     document.getElementById('var2').value = '';
-                    document.getElementById('var3').value = 'false'; // Reset select to default
+                    document.getElementById('var3').value = 'false'; 
                     document.getElementById('var4').value = '';
                 })
                 .catch(function (error) {
+                    alert('Something wrent wrong..')
                     console.error('Error generating zip file:', error);
                 });
 
