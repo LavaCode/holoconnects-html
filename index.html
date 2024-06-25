@@ -294,14 +294,14 @@
                         console.log("Final ID to be used in request is: " + finalLifesizeId);
                         console.log("Custom endpoint is set to: " + finalEndpoint);
                         console.log("Mode is: " + readyForDeployment);
-                        console.log("Request to be made is [client-mode]: " + "https://" + finalEndpoint + ".hologreets.com/api/customersatisfaction/" + finalLifesizeId + "/addscore/5");
-                        console.log("Request to be made is [test-mode]: " + "https://testing.hologreets.com/api/customersatisfaction/" + finalLifesizeId + "/addscore/5");
+                        console.log("Request to be made is [client-mode]: " + "https://" + finalEndpoint + ".hologreets.com/api/analytics/" + finalLifesizeId + "/addscore/5");
+                        console.log("Request to be made is [test-mode]: " + "https://testing.hologreets.com/api/analytics/" + finalLifesizeId + "/addscore/5");
                     }
 
                     if (!readyForDeployment) {
-                        request = "https://testing.hologreets.com/api/customersatisfaction/" + finalLifesizeId + "/addscore/5";
+                        request = "https://testing.hologreets.com/api/analytics/" + finalLifesizeId + "/addscore/5";
                     } else if (readyForDeployment) {
-                        request = "https://" + finalEndpoint + ".hologreets.com/api/customersatisfaction/" + finalLifesizeId + "/addscore/5";
+                        request = "https://" + finalEndpoint + ".hologreets.com/api/analytics/" + finalLifesizeId + "/addscore/5";
                     }
 
                     //const post = await fetch(request, {mode:"no-cors"}).then((res) => res.json());
@@ -337,14 +337,14 @@
                         console.log("Final ID to be used in request is: " + finalLifesizeId);
                         console.log("Custom endpoint is set to: " + finalEndpoint);
                         console.log("Mode is: " + readyForDeployment);
-                        console.log("Request to be made is [client-mode]: " + "https://" + finalEndpoint + ".hologreets.com/api/customersatisfaction/" + finalLifesizeId + "/addscore/3");
-                        console.log("Request to be made is [test-mode]: " + "https://testing.hologreets.com/api/customersatisfaction/" + finalLifesizeId + "/addscore/3");
+                        console.log("Request to be made is [client-mode]: " + "https://" + finalEndpoint + ".hologreets.com/api/analytics/" + finalLifesizeId + "/addscore/3");
+                        console.log("Request to be made is [test-mode]: " + "https://testing.hologreets.com/api/analytics/" + finalLifesizeId + "/addscore/3");
                     }
 
                     if (!readyForDeployment) {
-                        request = "https://testing.hologreets.com/api/customersatisfaction/" + finalLifesizeId + "/addscore/3";
+                        request = "https://testing.hologreets.com/api/analytics/" + finalLifesizeId + "/addscore/3";
                     } else if (readyForDeployment) {
-                        request = "https://" + finalEndpoint + ".hologreets.com/api/customersatisfaction/" + finalLifesizeId + "/addscore/3";
+                        request = "https://" + finalEndpoint + ".hologreets.com/api/analytics/" + finalLifesizeId + "/addscore/3";
                     }
 
                     //const post = await fetch(request, {mode:"no-cors"}).then((res) => res.json());
@@ -380,14 +380,57 @@
                         console.log("Final ID to be used in request is: " + finalLifesizeId);
                         console.log("Custom endpoint is set to: " + finalEndpoint);
                         console.log("Mode is: " + readyForDeployment);
-                        console.log("Request to be made is [client-mode]: " + "https://" + finalEndpoint + ".hologreets.com/api/customersatisfaction/" + finalLifesizeId + "/addscore/1");
-                        console.log("Request to be made is [test-mode]: " + "https://testing.hologreets.com/api/customersatisfaction/" + finalLifesizeId + "/addscore/1");
+                        console.log("Request to be made is [client-mode]: " + "https://" + finalEndpoint + ".hologreets.com/api/analytics/" + finalLifesizeId + "/call_receptionist");
+                        console.log("Request to be made is [test-mode]: " + "https://testing.hologreets.com/api/analytics/" + finalLifesizeId + "/call_receptionist");
                     }
 
                     if (!readyForDeployment) {
-                        request = "https://testing.hologreets.com/api/customersatisfaction/" + finalLifesizeId + "/addscore/1";
+                        request = "https://testing.hologreets.com/api/analytics/" + finalLifesizeId + "/call_receptionist";
                     } else if (readyForDeployment) {
-                        request = "https://" + finalEndpoint + ".hologreets.com/api/customersatisfaction/" + finalLifesizeId + "/addscore/1";
+                        request = "https://" + finalEndpoint + ".hologreets.com/api/analytics/" + finalLifesizeId + "/call_receptionist";
+                    }
+
+                    //const post = await fetch(request, {mode:"no-cors"}).then((res) => res.json());
+                    const post = await fetch(request).then((res) => res.json());
+                }
+
+                getData();
+            <\/script>
+            </head>
+
+            </html>
+            `;
+
+            const callButtonAnalytics = `
+            <!DOCTYPE html>
+            <html>
+
+            <head>
+            <script>
+                const lifesizeId = ${var2};
+                const readyForDeployment = ${var3};
+                const client = ${var4Stringified};
+
+                async function getData() {
+                    const debug = false;
+                    let finalEndpoint = client.toLowerCase();
+                    let finalLifesizeId = "0" + lifesizeId;
+                    let request = "";
+
+                    if (debug == true) {
+                        console.log("Custom client = " + finalEndpoint);
+                        console.log("Custom ID to be used in request is: " + lifesizeId);
+                        console.log("Final ID to be used in request is: " + finalLifesizeId);
+                        console.log("Custom endpoint is set to: " + finalEndpoint);
+                        console.log("Mode is: " + readyForDeployment);
+                        console.log("Request to be made is [client-mode]: " + "https://" + finalEndpoint + ".hologreets.com/api/analytics/" + finalLifesizeId + "/call_receptionist");
+                        console.log("Request to be made is [test-mode]: " + "https://testing.hologreets.com/api/analytics/" + finalLifesizeId + "/call_receptionist");
+                    }
+
+                    if (!readyForDeployment) {
+                        request = "https://testing.hologreets.com/api/analytics/" + finalLifesizeId + "/call_receptionist";
+                    } else if (readyForDeployment) {
+                        request = "https://" + finalEndpoint + ".hologreets.com/api/analytics/" + finalLifesizeId + "/call_receptionist";
                     }
 
                     //const post = await fetch(request, {mode:"no-cors"}).then((res) => res.json());
@@ -410,6 +453,7 @@
             zip.file('satisfaction-positive.html', htmlSatisfactionPositive);
             zip.file('satisfaction-neutral.html', htmlSatisfactionNeutral);
             zip.file('satisfaction-negative.html', htmlSatisfactionNegative);
+            zip.file('analytics-call-receptionist.html', callButtonAnalytics);
             zip.generateAsync({ type: 'blob' })
                 .then(function (blob) {
                     const zipFile = URL.createObjectURL(blob);
